@@ -1,0 +1,25 @@
+{
+    "app_settings": {
+        "window_size": "600x500",
+        "max_commits": 10,
+        "temp_dir_prefix": "gitdiff_",
+        "default_target_dir": ""
+    },
+    "git_settings": {
+        "clone_timeout": 300,
+        "fetch_all_branches": true,
+        "ignore_patterns": [
+            ".git",
+            "__pycache__",
+            "*.pyc",
+            ".DS_Store",
+            "Thumbs.db"
+        ]
+    },
+    "ui_settings": {
+        "language": "vi",
+        "theme": "default",
+        "show_progress": true,
+        "auto_cleanup": true
+    }
+}
