@@ -56,4 +56,19 @@ tmp/
 # Git diff tool specific
 before/
 after/
-gitdiff_*/ 
+gitdiff_*/
+
+# PyInstaller build files
+build/
+dist/
+*.spec
+*.pkg
+*.exe
+*.app
+
+# Keep dist/README.md and dist/USAGE_GUIDE.md
+!dist/README.md
+!dist/USAGE_GUIDE.md
+!dist/run.bat
+!dist/run.sh
+!dist/install.bat 
