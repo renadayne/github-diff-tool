@@ -5,32 +5,30 @@ echo "   Git Diff Tool - Build Script"
 echo "========================================"
 echo
 
-# Kiểm tra Python
+# Kiem tra Python
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Lỗi: Python3 chưa được cài đặt"
+    echo "[Loi] Python3 chua duoc cai dat tren he thong."
     exit 1
 fi
 
-# Cài đặt thư viện cần thiết
-echo "📦 Cài đặt thư viện cần thiết..."
+# Cai dat dependencies
+echo "[1/2] Cai dat thu vien can thiet..."
 python3 -m pip install -r requirements.txt
-python3 -m pip install pyinstaller
 
 if [ $? -ne 0 ]; then
-    echo "❌ Lỗi: Không thể cài đặt thư viện"
+    echo "[Loi] Khong the cai dat thu vien."
     exit 1
 fi
 
 echo
-echo "🔨 Bắt đầu build executable..."
+echo "[2/2] Bat dau build executable..."
 python3 setup.py
 
 if [ $? -ne 0 ]; then
     echo
-    echo "❌ Lỗi khi build"
+    echo "[Loi] Qua trinh build that bai."
     exit 1
 fi
 
 echo
-echo "✅ Build hoàn thành!"
-echo "📁 Kiểm tra thư mục dist/ để lấy file executable" 
+echo "[Thanh cong] Build hoan thanh. Kiem tra thu muc dist/ de lay file executable."

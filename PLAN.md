@@ -103,13 +103,14 @@ Mỗi task là một context độc lập, có phạm vi hẹp. **Sau mỗi task
   - *Kiểm thử khởi chạy toàn diện & Git commit + Push GitHub.*
 
 ### Giai đoạn 4: Viết Lại Tài Liệu (Khử Sạch AI Slop)
-- [ ] **Task 4.1: Viết lại `README.md` theo phong cách Open-source chuyên nghiệp**
+- [x] **Task 4.1: Viết lại `README.md` theo phong cách Open-source chuyên nghiệp**
   - Xóa sạch emoji thừa thãi, rườm rà.
   - Cấu trúc chuẩn: Giới thiệu ngắn gọn, Tính năng chính, Hướng dẫn cài đặt, Hướng dẫn sử dụng nhanh qua GUI, Bảng cấu hình `config.json`, Phím tắt/CLI, Giấy phép.
   - Ngôn từ kỹ thuật súc tích, mạch lạc.
-- [ ] **Task 4.2: Chuẩn hóa `USAGE_GUIDE.md` và `PACKAGING_GUIDE.md`**
+- [x] **Task 4.2: Chuẩn hóa `USAGE_GUIDE.md` và `PACKAGING_GUIDE.md`**
   - Cập nhật hướng dẫn khớp với UI mới.
   - Hướng dẫn build file exe bằng PyInstaller với cấu trúc module mới.
+  - Làm sạch các file runner script build.bat, run.bat, build.sh, run.sh.
   - *Kiểm thử & Git commit + Push GitHub.*
 
 ---

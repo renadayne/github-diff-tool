@@ -1,119 +1,55 @@
 # Hướng dẫn đóng gói Git Diff Tool
 
-## 📦 Tổng quan
+Tài liệu này hướng dẫn cách đóng gói Git Diff Tool thành một file thực thi độc lập (`.exe` trên Windows) sử dụng PyInstaller.
 
-Dự án này sử dụng PyInstaller để đóng gói thành file executable (.exe) độc lập, không cần cài đặt Python trên máy người dùng.
+---
 
-## 🚀 Cách đóng gói nhanh
+## Yêu cầu trước khi đóng gói
 
-### Windows
-```bash
-# Chạy script build tự động
+1. Đã cài đặt Python 3.10 trở lên.
+2. Đã cài đặt các gói trong `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   Gói `pyinstaller` đã được khai báo sẵn trong file này.
+
+---
+
+## Quy trình đóng gói
+
+### 1. Đóng gói tự động qua script
+
+Trên hệ điều hành Windows:
+```cmd
 build.bat
 ```
 
-### Linux/Mac
+Hoặc chạy trực tiếp qua Python:
 ```bash
-# Cấp quyền thực thi
-chmod +x build.sh
-
-# Chạy script build
-./build.sh
-```
-
-### Thủ công
-```bash
-# Cài đặt PyInstaller
-pip install pyinstaller
-
-# Build executable
 python setup.py
 ```
 
-## 📁 Kết quả đóng gói
+### 2. Các thông số cấu hình đóng gói (trong setup.py)
 
-Sau khi build thành công, bạn sẽ có:
+Script `setup.py` tự động thiết lập các cờ tối ưu cho PyInstaller:
+- `--onefile`: Đóng gói toàn bộ mã nguồn và dependencies vào 1 file `.exe` duy nhất.
+- `--windowed`: Chạy ở chế độ giao diện đồ họa không hiển thị cửa sổ console nền đen.
+- `--add-data`: Tự động nhúng file cấu hình `config.json`.
+- `--hidden-import`: Khai báo tường minh các module `core` và `ui` để tránh lỗi thiếu module động khi chạy file `.exe`.
 
-```
+---
+
+## Kết quả xuất xưởng
+
+Sau khi lệnh kết thúc thành công, các file thành phẩm sẽ nằm trong thư mục `dist/`:
+
+```text
 dist/
-├── GitDiffTool.exe          # File executable chính
-├── install.bat              # Script cài đặt tự động
+├── GitDiffTool.exe          # File thực thi chính của ứng dụng
+├── install.bat              # Script cài đặt tiện lợi và tạo shortcut Desktop
 ├── README.md                # Tài liệu hướng dẫn
 ├── USAGE_GUIDE.md           # Hướng dẫn sử dụng chi tiết
-├── run.bat                  # Script chạy (Windows)
-└── run.sh                   # Script chạy (Linux/Mac)
+└── config.json              # File cấu hình mặc định
 ```
 
-## 🔧 Tùy chỉnh build
-
-### Thêm icon
-1. Tạo file `icon.ico` trong thư mục gốc
-2. Chạy lại build script
-3. Icon sẽ được tự động nhúng vào executable
-
-### Thay đổi tên file
-Chỉnh sửa file `setup.py`:
-```python
-"--name=TenMoi",  # Thay đổi tên executable
-```
-
-### Thêm file dữ liệu
-Chỉnh sửa file `setup.py`:
-```python
-"--add-data=file.txt;.",  # Thêm file vào executable
-```
-
-## 📦 Phân phối
-
-### Cách 1: Cài đặt tự động
-1. Chạy `dist/install.bat`
-2. Tool sẽ được cài vào `%USERPROFILE%\GitDiffTool`
-3. Shortcut được tạo trên Desktop
-
-### Cách 2: Chạy trực tiếp
-1. Copy toàn bộ thư mục `dist/` đến máy đích
-2. Chạy `GitDiffTool.exe` trực tiếp
-
-### Cách 3: Tạo installer
-Sử dụng công cụ như Inno Setup để tạo installer chuyên nghiệp.
-
-## 🐛 Xử lý lỗi build
-
-### Lỗi "Module not found"
-- Kiểm tra `requirements.txt` có đầy đủ thư viện
-- Chạy `pip install -r requirements.txt`
-
-### Lỗi "PyInstaller not found"
-- Cài đặt PyInstaller: `pip install pyinstaller`
-
-### Lỗi "Permission denied" (Linux/Mac)
-- Cấp quyền thực thi: `chmod +x build.sh`
-
-### Executable quá lớn
-- Sử dụng `--onefile` thay vì `--onedir`
-- Loại bỏ thư viện không cần thiết
-
-## 📊 Kích thước file
-
-- **GitDiffTool.exe**: ~50-100MB (bao gồm Python runtime)
-- **Thư mục dist/**: ~150-200MB (bao gồm tài liệu)
-
-## 🔒 Bảo mật
-
-- Executable được tạo không chứa source code gốc
-- Personal Access Token không được lưu trữ
-- Thư mục tạm được tự động xóa
-
-## 📝 Ghi chú
-
-- Executable chỉ hoạt động trên cùng hệ điều hành build
-- Windows build chỉ chạy trên Windows
-- Linux build chỉ chạy trên Linux
-- Mac build chỉ chạy trên macOS
-
-## 🤝 Đóng góp
-
-Nếu gặp vấn đề khi build, vui lòng:
-1. Kiểm tra phiên bản Python (>= 3.6)
-2. Cài đặt đầy đủ thư viện
-3. Tạo issue với thông tin lỗi chi tiết 
+Người dùng có thể sao chép thư mục `dist` sang bất kỳ máy tính Windows nào khác và khởi chạy trực tiếp file `GitDiffTool.exe` mà không cần cài đặt Python.

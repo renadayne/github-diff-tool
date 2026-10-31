@@ -1,189 +1,94 @@
 # Hướng dẫn sử dụng Git Diff Tool
 
-## 📖 Mục lục
-1. [Giới thiệu](#giới-thiệu)
-2. [Cài đặt](#cài-đặt)
-3. [Sử dụng cơ bản](#sử-dụng-cơ-bản)
-4. [Sử dụng nâng cao](#sử-dụng-nâng-cao)
-5. [Xử lý lỗi](#xử-lý-lỗi)
-6. [FAQ](#faq)
+Tài liệu này cung cấp hướng dẫn chi tiết về các thao tác, tính năng nâng cao và cách giải quyết các tình huống thường gặp khi sử dụng Git Diff Tool.
 
-## 🎯 Giới thiệu
+---
 
-Git Diff Tool là một công cụ GUI đơn giản giúp bạn so sánh 2 phiên bản khác nhau của một Git repository và tạo ra các file tương ứng trong 2 thư mục riêng biệt.
+## Mục lục
 
-### Khi nào sử dụng?
-- So sánh code giữa 2 branch khác nhau
-- Xem sự thay đổi giữa 2 commit gần nhất
-- Phân tích sự khác biệt trong dự án
-- Backup và so sánh phiên bản code
+1. [Tổng quan](#tổng-quan)
+2. [Thao tác cơ bản](#thao-tác-cơ-bản)
+3. [Các tính năng nâng cao](#các-tính-năng-nâng-cao)
+4. [Tích hợp công cụ ngoài](#tích-hợp-công-cụ-ngoài)
+5. [Khắc phục sự cố](#khắc-phục-sự-cố)
 
-## 🚀 Cài đặt
+---
 
-### Bước 1: Kiểm tra yêu cầu hệ thống
-```bash
-# Kiểm tra Python
-python --version  # Phải >= 3.6
+## Tổng quan
 
-# Kiểm tra Git
-git --version
-```
+Git Diff Tool giúp lập trình viên nhanh chóng:
+- Xem trước sự khác biệt giữa hai nhánh (branch) hoặc hai commit.
+- Trích xuất riêng các file bị thay đổi (giữ nguyên cấu trúc thư mục phân cấp tương đối) để gửi cho khách hàng, đối tác hoặc phục vụ đánh giá mã nguồn (code review).
+- Tạo file patch chuẩn (`.patch`) và báo cáo tổng hợp thay đổi (`.md`, `.json`).
 
-### Bước 2: Tải và cài đặt
-```bash
-# Clone repository
-git clone <repository-url>
-cd github-diff-tool
+---
 
-# Cài đặt thư viện
-pip install -r requirements.txt
-```
+## Thao tác cơ bản
 
-### Bước 3: Chạy ứng dụng
-```bash
-# Windows
-run.bat
+### 1. Mở Repository
 
-# Linux/Mac
-chmod +x run.sh
-./run.sh
+Ứng dụng hỗ trợ hai phương thức nạp mã nguồn:
 
-# Hoặc trực tiếp
-python run.py
-```
+#### Cách 1: Sử dụng thư mục mã nguồn có sẵn trên máy (Local Repo)
+1. Tại thẻ **Thư mục máy (Local Repo)**, nhấn **Chọn thư mục...**.
+2. Chọn thư mục chứa repository (thư mục có chứa folder con `.git`).
+3. Nhấn **Mở Repository**. Thanh trạng thái phía trên sẽ chuyển sang màu xanh hiển thị tên repo.
 
-## 💻 Sử dụng cơ bản
+#### Cách 2: Clone từ GitHub (Remote Repo)
+1. Chuyển sang thẻ **Clone từ GitHub (Remote)**.
+2. Nhập URL HTTPS của repository (ví dụ: `https://github.com/torvalds/linux.git`).
+3. Nếu là kho lưu trữ riêng tư (private repo), nhập mã **Personal Access Token** vào ô mật khẩu.
+4. Nhấn **Clone Repository**. Ứng dụng sẽ clone về thư mục tạm trong nền mà không làm đơ giao diện.
 
-### 1. Nhập Repository URL
-- Mở ứng dụng
-- Nhập URL GitHub repository vào ô đầu tiên
-- Ví dụ: `https://github.com/username/project-name`
+### 2. Chọn phiên bản so sánh
 
-### 2. Xác thực (nếu cần)
-- Nếu repository là private, nhập Personal Access Token
-- Token có thể tạo tại: GitHub Settings > Developer settings > Personal access tokens
-- Cần quyền `repo` để truy cập private repository
+1. Chọn chế độ:
+   - **So sánh giữa 2 Nhánh**: Danh sách dropdown sẽ hiển thị toàn bộ các nhánh local và remote có sẵn.
+   - **So sánh giữa 2 Commit**: Dropdown sẽ liệt kê các commit gần nhất kèm mã hash, thông điệp commit, tác giả và ngày tháng.
+2. Chọn phiên bản gốc tại ô **Bản Trước (Before)** và phiên bản cần đối chiếu tại ô **Bản Sau (After)**.
+3. Nếu muốn đổi chiều so sánh, nhấn nút **⇄ Đổi**.
+4. Nhấn **Xem trước Diff**: Danh sách các file thay đổi sẽ hiển thị ngay trong bảng bên dưới.
 
-### 3. Clone Repository
-- Nhấn nút "Clone Repository"
-- Đợi quá trình clone hoàn tất
-- Thanh tiến trình sẽ hiển thị trạng thái
+### 3. Xuất file kết quả
 
-### 4. Chọn chế độ so sánh
-- **So sánh 2 branch**: Chọn 2 branch khác nhau
-- **So sánh 2 commit gần nhất**: Tự động lấy 2 commit mới nhất
+1. Chọn thư mục đích tại ô **Thư mục xuất**.
+2. Lựa chọn chế độ xuất:
+   - **Chỉ xuất file thay đổi (Khuyên dùng)**: Chỉ trích xuất các file modified, added, deleted, renamed. Đây là phương thức nhanh nhất và tiết kiệm dung lượng ổ đĩa.
+   - **Xuất toàn bộ snapshot**: Trích xuất toàn bộ cây mã nguồn của cả hai phiên bản.
+3. Tích chọn **Tạo patch (.patch)** và **Báo cáo tóm tắt (.md/.json)** nếu cần.
+4. Nhấn **So sánh & Xuất Thư mục**.
 
-### 5. Chọn thư mục đích
-- Nhấn "Browse" để chọn nơi lưu kết quả
-- Tool sẽ tạo 2 thư mục: `before/` và `after/`
+---
 
-### 6. Thực hiện so sánh
-- Nhấn "So sánh và Tạo Diff"
-- Đợi quá trình hoàn tất
-- Kết quả sẽ được hiển thị trong popup
+## Các tính năng nâng cao
 
-## 🔧 Sử dụng nâng cao
+### Trình xem Diff trực quan (In-app Diff Viewer)
 
-### So sánh Repository Private
-1. Tạo Personal Access Token trên GitHub
-2. Chọn quyền `repo` (full control of private repositories)
-3. Copy token và paste vào ô "Personal Access Token"
-4. Clone repository như bình thường
+Khi xem trước hoặc sau khi xuất file:
+- Click vào bất kỳ file nào trong danh sách bên trái để xem nội dung diff tô màu ở khung bên phải:
+  - Khối hunk header (`@@ ... @@`) được làm nổi bật với màu chàm (indigo).
+  - Các dòng thêm mới (`+`) có màu xanh lá và nền xanh nhạt.
+  - Các dòng bị xóa (`-`) có màu đỏ và nền đỏ nhạt.
+- Nhấn **Sao chép Diff** để lưu nội dung unified diff của file (hoặc toàn bộ) vào bộ nhớ tạm (Clipboard).
 
-### So sánh 2 Commit cụ thể
-1. Chọn chế độ "So sánh 2 commit gần nhất"
-2. Danh sách commit sẽ hiển thị với format: `hash - message`
-3. Chọn 2 commit muốn so sánh
-4. Thực hiện so sánh
+### Tích hợp Visual Studio Code
 
-### Tùy chỉnh cấu hình
-Chỉnh sửa file `config.json`:
-```json
-{
-    "app_settings": {
-        "max_commits": 20,  // Số commit tối đa hiển thị
-        "window_size": "800x600"  // Kích thước cửa sổ
-    }
-}
-```
+Nếu máy tính đã cài đặt lệnh `code` trong PATH:
+1. Chọn file cần so sánh trong danh sách.
+2. Nhấn nút **Mở trong VS Code**.
+3. VS Code sẽ tự động mở chế độ so sánh 2 file cạnh nhau (`code --diff before/file after/file`).
 
-## 🐛 Xử lý lỗi
+---
 
-### Lỗi "Repository not found"
-**Nguyên nhân:**
-- URL repository không đúng
-- Repository không tồn tại
-- Không có quyền truy cập
+## Khắc phục sự cố
 
-**Giải pháp:**
-1. Kiểm tra lại URL repository
-2. Đảm bảo repository tồn tại
-3. Nếu là private repo, nhập Personal Access Token
+### 1. Ứng dụng không tìm thấy Git
+- Git Diff Tool đã tích hợp sẵn module `core.git_finder` tự động quét các thư mục cài đặt thông dụng trên Windows.
+- Nếu bạn cài Git ở một đường dẫn đặc thù, bạn có thể thiết lập biến môi trường `GIT_PYTHON_GIT_EXECUTABLE` trỏ trực tiếp đến file `git.exe` trước khi chạy ứng dụng, hoặc cấu hình trong `config.json` mục `git_settings.custom_git_path`.
 
-### Lỗi "Authentication failed"
-**Nguyên nhân:**
-- Personal Access Token không đúng
-- Token hết hạn
-- Token không có đủ quyền
+### 2. Lỗi xác thực khi Clone Private Repository
+- Kiểm tra lại Personal Access Token xem đã cấp quyền `repo` (đối với classic token) hoặc quyền đọc `Contents` (đối với fine-grained token) hay chưa.
+- Đảm bảo URL bắt đầu bằng `https://github.com/...`.
 
-**Giải pháp:**
-1. Tạo token mới tại GitHub
-2. Đảm bảo token có quyền `repo`
-3. Copy token chính xác (không có khoảng trắng)
-
-### Lỗi "Permission denied"
-**Nguyên nhân:**
-- Không có quyền ghi vào thư mục đích
-- Thư mục đích bị khóa
-
-**Giải pháp:**
-1. Chọn thư mục khác có quyền ghi
-2. Chạy ứng dụng với quyền admin (Windows)
-3. Kiểm tra quyền thư mục (Linux/Mac)
-
-### Lỗi "Network timeout"
-**Nguyên nhân:**
-- Kết nối mạng chậm
-- Repository quá lớn
-- Firewall chặn kết nối
-
-**Giải pháp:**
-1. Kiểm tra kết nối internet
-2. Thử lại sau vài phút
-3. Tắt firewall tạm thời
-4. Sử dụng VPN nếu cần
-
-## ❓ FAQ
-
-### Q: Tool có hỗ trợ repository từ GitLab/Bitbucket không?
-A: Hiện tại tool được thiết kế cho GitHub, nhưng có thể hoạt động với các Git repository khác nếu URL format tương tự.
-
-### Q: Có thể so sánh nhiều hơn 2 branch/commit không?
-A: Hiện tại tool chỉ hỗ trợ so sánh 2 phiên bản. Để so sánh nhiều hơn, bạn có thể chạy tool nhiều lần.
-
-### Q: Tool có lưu trữ Personal Access Token không?
-A: Không, token chỉ được sử dụng để clone repository và không được lưu trữ trên máy.
-
-### Q: Có thể hủy quá trình clone/so sánh không?
-A: Hiện tại chưa có tính năng hủy. Bạn có thể đóng ứng dụng và chạy lại.
-
-### Q: Tool có hỗ trợ so sánh file cụ thể không?
-A: Hiện tại tool so sánh toàn bộ repository. Bạn có thể sử dụng công cụ diff khác để so sánh file cụ thể sau khi có kết quả.
-
-### Q: Có thể tùy chỉnh file/folder bị loại trừ không?
-A: Có thể chỉnh sửa `config.json` để thêm pattern loại trừ:
-```json
-"ignore_patterns": [
-    ".git",
-    "node_modules",
-    "*.log",
-    "temp/"
-]
-```
-
-## 📞 Hỗ trợ
-
-Nếu gặp vấn đề, vui lòng:
-1. Kiểm tra phần "Xử lý lỗi" ở trên
-2. Tạo issue trên GitHub repository
-3. Cung cấp thông tin chi tiết về lỗi và môi trường hệ thống 
+### 3. File binary hoặc file quá lớn
+- Với các file nhị phân (hình ảnh, file nén, file thực thi), trình xem diff sẽ hiển thị thông báo thay vì render văn bản để tránh làm chậm giao diện. Tuy nhiên, file vẫn được trích xuất đầy đủ và chính xác vào hai thư mục `before/` và `after/`.

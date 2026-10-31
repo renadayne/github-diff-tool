@@ -4,37 +4,35 @@ echo    Git Diff Tool - Build Script
 echo ========================================
 echo.
 
-REM Kiểm tra Python
+REM Kiem tra Python
 python --version >nul 2>&1
 if errorlevel 1 (
-    echo ❌ Lỗi: Python chưa được cài đặt
+    echo [Loi] Python chua duoc cai dat hoac khong co trong PATH
     pause
     exit /b 1
 )
 
-REM Cài đặt thư viện cần thiết
-echo 📦 Cài đặt thư viện cần thiết...
+REM Cai dat thu vien can thiet
+echo [1/2] Kiem tra va cai dat thu vien can thiet...
 pip install -r requirements.txt
-pip install pyinstaller
 
 if errorlevel 1 (
-    echo ❌ Lỗi: Không thể cài đặt thư viện
+    echo [Loi] Khong the cai dat thu vien
     pause
     exit /b 1
 )
 
 echo.
-echo 🔨 Bắt đầu build executable...
+echo [2/2] Bat dau build executable qua setup.py...
 python setup.py
 
 if errorlevel 1 (
     echo.
-    echo ❌ Lỗi khi build
+    echo [Loi] Qua trinh build that bai
     pause
     exit /b 1
 )
 
 echo.
-echo ✅ Build hoàn thành!
-echo 📁 Kiểm tra thư mục dist/ để lấy file executable
-pause 
+echo [Thanh cong] Build hoan thanh. Kiem tra thu muc dist/ de lay file executable.
+pause
