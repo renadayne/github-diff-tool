@@ -55,17 +55,17 @@ github-diff-tool/
 Mỗi task là một context độc lập, có phạm vi hẹp. **Sau mỗi task con hoàn thành và kiểm thử, tiến hành git commit và git push lên GitHub**.
 
 ### Giai đoạn 1: Thiết lập Nền tảng & Cấu trúc Module
-- [ ] **Task 1.1: Cập nhật môi trường & .gitignore**
+- [x] **Task 1.1: Cập nhật môi trường & .gitignore**
   - Cập nhật `.gitignore` để bỏ qua `.venv/`, thư mục test diff tạm, file rác.
   - Tạo `core/git_finder.py` tự động nhận diện `git.exe` ở các thư mục cài đặt đặc thù (như `D:\Software\Git\Git\cmd\git.exe`, Program Files, AppData, Registry) và gán `GIT_PYTHON_GIT_EXECUTABLE`.
   - *Kiểm thử & Git commit + Push GitHub.*
-- [ ] **Task 1.2: Module hóa Quản lý Cấu hình (`core/config_manager.py`)**
+- [x] **Task 1.2: Module hóa Quản lý Cấu hình (`core/config_manager.py`)**
   - Tạo lớp `ConfigManager` quản lý load/save `config.json` với fallback mặc định an toàn.
   - Bổ sung cấu hình: export mode (chỉ file đổi vs toàn bộ repo), theme (dark/light), ignore patterns, external diff viewer (VS Code).
   - *Kiểm thử & Git commit + Push GitHub.*
 
 ### Giai đoạn 2: Xây dựng Core Git Engine & Diff Exporter
-- [ ] **Task 2.1: Hoàn thiện `core/git_service.py`**
+- [x] **Task 2.1: Hoàn thiện `core/git_service.py`**
   - Hỗ trợ 2 chế độ mở repo:
     1. **Local Repository**: Mở ngay thư mục Git trên máy tính không cần clone.
     2. **Remote Clone**: Clone từ GitHub (hỗ trợ PAT token an toàn, timeout, tắt terminal prompt để tránh treo).
@@ -73,7 +73,7 @@ Mỗi task là một context độc lập, có phạm vi hẹp. **Sau mỗi task
   - Trích xuất danh sách commits linh hoạt (hash, tác giả, thời gian, commit message, hỗ trợ phân trang/tìm kiếm).
   - Phân tích diff giữa 2 revision bằng Git Engine: trả về danh sách file thay đổi kèm trạng thái (A: Thêm mới, M: Sửa đổi, D: Xóa, R: Đổi tên) và số dòng +/-.
   - *Kiểm thử độc lập với script & Git commit + Push GitHub.*
-- [ ] **Task 2.2: Hoàn thiện `core/diff_exporter.py`**
+- [x] **Task 2.2: Hoàn thiện `core/diff_exporter.py`**
   - Hàm xuất file diff:
     - Chế độ 1 (**Khuyên dùng - Changed Files Only**): Chỉ trích xuất các file thay đổi vào `before/` và `after/` theo đúng cấu trúc thư mục con tương đối.
     - Chế độ 2 (**Full Tree Snapshot**): Trích xuất toàn bộ dự án nếu người dùng có nhu cầu.
