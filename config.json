@@ -1,11 +1,15 @@
 {
     "app_settings": {
-        "window_size": "600x500",
-        "max_commits": 10,
+        "window_size": "960x700",
+        "max_commits": 50,
         "temp_dir_prefix": "gitdiff_",
-        "default_target_dir": ""
+        "default_target_dir": "",
+        "export_mode": "changed_only",
+        "generate_patch": true,
+        "generate_summary": true
     },
     "git_settings": {
+        "custom_git_path": "",
         "clone_timeout": 300,
         "fetch_all_branches": true,
         "ignore_patterns": [
@@ -13,13 +17,16 @@
             "__pycache__",
             "*.pyc",
             ".DS_Store",
-            "Thumbs.db"
+            "Thumbs.db",
+            "node_modules",
+            ".venv"
         ]
     },
     "ui_settings": {
-        "language": "vi",
-        "theme": "default",
-        "show_progress": true,
-        "auto_cleanup": true
+        "theme": "clean_light",
+        "font_family": "Segoe UI",
+        "font_size": 10,
+        "auto_cleanup": true,
+        "external_diff_tool": "code"
     }
 }
