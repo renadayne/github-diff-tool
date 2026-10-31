@@ -36,6 +36,15 @@ def build_executable():
         "--add-data=config.json;.",     # Thêm file config
         "--hidden-import=git",          # Import git module
         "--hidden-import=requests",     # Import requests module
+        "--hidden-import=core",
+        "--hidden-import=core.git_finder",
+        "--hidden-import=core.git_service",
+        "--hidden-import=core.diff_exporter",
+        "--hidden-import=core.config_manager",
+        "--hidden-import=ui",
+        "--hidden-import=ui.theme",
+        "--hidden-import=ui.diff_viewer",
+        "--hidden-import=ui.main_window",
         "git_diff_tool.py"              # File chính
     ]
     

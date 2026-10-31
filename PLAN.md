@@ -81,24 +81,23 @@ Mỗi task là một context độc lập, có phạm vi hẹp. **Sau mỗi task
   - *Kiểm thử & Git commit + Push GitHub.*
 
 ### Giai đoạn 3: Thiết kế Lại Toàn diện Giao diện (UI/UX)
-- [ ] **Task 3.1: Hệ thống Giao diện & Design System (`ui/theme.py`)**
-  - Tạo theme hiện đại trên nền `ttk.Style` với bảng màu slate cao cấp (`#0f172a`, `#1e293b`, `#3b82f6`, `#10b981`, `#ef4444`).
+- [x] **Task 3.1: Hệ thống Giao diện & Design System (`ui/theme.py`)**
+  - Tạo theme Clean Light hiện đại trên nền `ttk.Style` với bảng màu slate cao cấp (`#f8fafc`, `#ffffff`, `#2563eb`, `#16a34a`, `#dc2626`).
   - Typography tối ưu cho Windows (Segoe UI), bo góc nhẹ, padding thoáng đãng, phân tách thẻ card rõ ràng.
-  - Hỗ trợ chuyển đổi Dark Mode / Light Mode.
   - *Kiểm thử visual & Git commit + Push GitHub.*
-- [ ] **Task 3.2: Giao diện Chính (`ui/main_window.py`)**
+- [x] **Task 3.2: Giao diện Chính (`ui/main_window.py`)**
   - Thiết kế layout 2 tab nguồn: "Local Git Repo" và "Clone GitHub".
   - Bộ chọn phiên bản (Source vs Target: Branch hoặc Commit) có dropdown tìm kiếm nhanh.
   - Tùy chọn xuất file: Chọn thư mục lưu, chọn chế độ (chỉ file đổi hay toàn bộ repo), nút mở nhanh thư mục.
   - Thanh tiến trình thực tế, nhãn trạng thái và xử lý background thread mượt mà.
   - *Kiểm thử & Git commit + Push GitHub.*
-- [ ] **Task 3.3: Khung Xem & So sánh Diff Ngay Trong Ứng dụng (`ui/diff_viewer.py`)**
+- [x] **Task 3.3: Khung Xem & So sánh Diff Ngay Trong Ứng dụng (`ui/diff_viewer.py`)**
   - Tích hợp khung Split View:
     - Bên trái: Bảng danh sách các file thay đổi (có icon/tag: Added, Modified, Deleted) cùng số dòng thay đổi.
     - Bên phải: Trình xem Unified Diff với màu sắc trực quan (dòng thêm nền xanh, dòng xóa nền đỏ, số dòng rõ ràng).
   - Nút tiện ích: "Mở trong VS Code" (`code -d before/file after/file`), "Mở Explorer", "Copy Patch".
   - *Kiểm thử & Git commit + Push GitHub.*
-- [ ] **Task 3.4: Nối Entry Points & Đóng gói Runner**
+- [x] **Task 3.4: Nối Entry Points & Đóng gói Runner**
   - Cập nhật `git_diff_tool.py` và `run.py` trỏ đến cấu trúc mới.
   - Tự động kiểm tra môi trường, hướng dẫn cài đặt nếu thiếu thư viện.
   - *Kiểm thử khởi chạy toàn diện & Git commit + Push GitHub.*
